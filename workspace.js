@@ -67,7 +67,8 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
             this.loadConsoleWidget(function() {
                 setTimeout(function() { $(window).trigger('resize'); }, 100);
             });
-            
+            this.loadXYZWidget()
+            this.loadGcodeListWidget()
             this.loadTemplateWidget();
             
             // Create our workspace upper right corner triangle menu
@@ -168,6 +169,54 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
 
                     });
                 }
+            );
+        },
+        /**
+         * Load the Axes widget via chilipeppr.load()
+         */
+        loadXYZWidget: function(callback) {
+
+            var that = this;
+
+            chilipeppr.load(
+              "#com-chilipeppr-widget-xyz-instance",
+              "http://raw.githubusercontent.com/chilipeppr/widget-axes/master/auto-generated-widget.html",
+              function() {
+                // Callback after widget loaded into #myDivWidgetXyz
+                // Now use require.js to get reference to instantiated widget
+                cprequire(
+                  ["inline:com-chilipeppr-widget-xyz"], // the id you gave your widget
+                  function(myObjWidgetXyz) {
+                    // Callback that is passed reference to the newly loaded widget
+                    console.log("Widget / XYZ Axes just got loaded.", myObjWidgetXyz);
+                    myObjWidgetXyz.init();
+                  }
+                );
+              }
+            );
+        },
+        /**
+         * Load the GcodeList widget via chilipeppr.load()
+         */
+        loadGcodeListWidget: function(callback) {
+
+            var that = this;
+
+            chilipeppr.load(
+              "#com-chilipeppr-widget-gcodelist-instance",
+              "http://raw.githubusercontent.com/chilipeppr/widget-gcodelist/master/auto-generated-widget.html",
+              function() {
+                // Callback after widget loaded into #myDivWidgetGcode
+                // Now use require.js to get reference to instantiated widget
+                cprequire(
+                  ["inline:com-chilipeppr-widget-gcode"], // the id you gave your widget
+                  function(myObjWidgetGcode) {
+                    // Callback that is passed reference to the newly loaded widget
+                    console.log("Widget / Gcode v3 just got loaded.", myObjWidgetGcode);
+                    myObjWidgetGcode.init();
+                  }
+                );
+              }
             );
         },
         /**
