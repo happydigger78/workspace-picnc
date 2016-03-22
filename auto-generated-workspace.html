@@ -161,6 +161,8 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
             });
             this.loadXYZWidget()
             this.loadGcodeListWidget()
+            this.loadSVG2GcodeWidget()
+            this.load3DViewerWidget()
             this.loadTemplateWidget();
             
             // Create our workspace upper right corner triangle menu
@@ -312,6 +314,54 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
             );
         },
         /**
+         * Load the SVG2Gcode widget via chilipeppr.load()
+         */
+        loadSVG2GcodeWidget: function(callback) {
+
+            var that = this;
+
+            chilipeppr.load(
+              "#com-chilipeppr-widget-svg2gcode-instance",
+              "http://raw.githubusercontent.com/chilipeppr/widget-svg2gcode/master/auto-generated-widget.html",
+              function() {
+                // Callback after widget loaded into #myDivComZipwhipWidgetSvg2gcode
+                // Now use require.js to get reference to instantiated widget
+                cprequire(
+                  ["inline:com-zipwhip-widget-svg2gcode"], // the id you gave your widget
+                  function(myObjComZipwhipWidgetSvg2gcode) {
+                    // Callback that is passed reference to the newly loaded widget
+                    console.log("Widget / svg2gcode just got loaded.", myObjComZipwhipWidgetSvg2gcode);
+                    myObjComZipwhipWidgetSvg2gcode.init();
+                  }
+                );
+              }
+            );
+        },
+        /**
+         * Load the 3DViewer widget via chilipeppr.load()
+         */
+        load3DViewerWidget: function(callback) {
+
+            var that = this;
+
+            chilipeppr.load(
+              "#com-chilipeppr-widget-3dviewer-instance",
+              "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
+              function() {
+                // Callback after widget loaded into #myDivWidget3dviewer
+                // Now use require.js to get reference to instantiated widget
+                cprequire(
+                  ["inline:com-chilipeppr-widget-3dviewer"], // the id you gave your widget
+                  function(myObjWidget3dviewer) {
+                    // Callback that is passed reference to the newly loaded widget
+                    console.log("Widget / 3D GCode Viewer just got loaded.", myObjWidget3dviewer);
+                    myObjWidget3dviewer.init();
+                  }
+                );
+              }
+            );
+        },
+        /**
          * Load the Console widget via chilipeppr.load()
          */
         loadConsoleWidget: function(callback) {
@@ -387,7 +437,7 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
                 <!-- Left Column -->
                 <!-- Change the width by adjusting col-md-4 to be col-md-3 for skinnier, or col-md-5 for wider -->
                 <!-- You must have all columns add up to 12 since we use bootstrap's col-md technique, i.e. col-md-2, col-md-7, col-md-3 adds to 12 -->
-                <div class="col-md-4 col-pad10">
+                <div class="col-md-3 col-pad10">
 
                     <div class="com-chilipeppr-ws-hdr well">
                         
@@ -426,11 +476,11 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
                     </div>
 
                     <div id="com-chilipeppr-widget-serialport-instance">
-                        Widget 3 goes here
+                        Serial Port
                     </div>
                     
-                    <div id="mywidget3-instance">
-                        <p class="sample">Widget 3 goes here</p>
+                    <div id="com-chilipeppr-widget-svg2gcode-instance">
+                        SVG2Gcode
                     </div>
 
                 </div>

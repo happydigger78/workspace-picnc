@@ -69,6 +69,8 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
             });
             this.loadXYZWidget()
             this.loadGcodeListWidget()
+            this.loadSVG2GcodeWidget()
+            this.load3DViewerWidget()
             this.loadTemplateWidget();
             
             // Create our workspace upper right corner triangle menu
@@ -214,6 +216,54 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
                     // Callback that is passed reference to the newly loaded widget
                     console.log("Widget / Gcode v3 just got loaded.", myObjWidgetGcode);
                     myObjWidgetGcode.init();
+                  }
+                );
+              }
+            );
+        },
+        /**
+         * Load the SVG2Gcode widget via chilipeppr.load()
+         */
+        loadSVG2GcodeWidget: function(callback) {
+
+            var that = this;
+
+            chilipeppr.load(
+              "#com-chilipeppr-widget-svg2gcode-instance",
+              "http://raw.githubusercontent.com/chilipeppr/widget-svg2gcode/master/auto-generated-widget.html",
+              function() {
+                // Callback after widget loaded into #myDivComZipwhipWidgetSvg2gcode
+                // Now use require.js to get reference to instantiated widget
+                cprequire(
+                  ["inline:com-zipwhip-widget-svg2gcode"], // the id you gave your widget
+                  function(myObjComZipwhipWidgetSvg2gcode) {
+                    // Callback that is passed reference to the newly loaded widget
+                    console.log("Widget / svg2gcode just got loaded.", myObjComZipwhipWidgetSvg2gcode);
+                    myObjComZipwhipWidgetSvg2gcode.init();
+                  }
+                );
+              }
+            );
+        },
+        /**
+         * Load the 3DViewer widget via chilipeppr.load()
+         */
+        load3DViewerWidget: function(callback) {
+
+            var that = this;
+
+            chilipeppr.load(
+              "#com-chilipeppr-widget-3dviewer-instance",
+              "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
+              function() {
+                // Callback after widget loaded into #myDivWidget3dviewer
+                // Now use require.js to get reference to instantiated widget
+                cprequire(
+                  ["inline:com-chilipeppr-widget-3dviewer"], // the id you gave your widget
+                  function(myObjWidget3dviewer) {
+                    // Callback that is passed reference to the newly loaded widget
+                    console.log("Widget / 3D GCode Viewer just got loaded.", myObjWidget3dviewer);
+                    myObjWidget3dviewer.init();
                   }
                 );
               }
