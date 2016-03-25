@@ -71,6 +71,7 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
             this.loadGcodeListWidget()
             this.loadSVG2GcodeWidget()
             this.load3DViewerWidget()
+            this.loadJsCutWidget()
             this.loadTemplateWidget();
             
             // Create our workspace upper right corner triangle menu
@@ -192,6 +193,30 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
                     // Callback that is passed reference to the newly loaded widget
                     console.log("Widget / XYZ Axes just got loaded.", myObjWidgetXyz);
                     myObjWidgetXyz.init();
+                  }
+                );
+              }
+            );
+        },
+        /**
+         * Load the Axes widget via chilipeppr.load()
+         */
+        loadJsCutWidget: function(callback) {
+
+            var that = this;
+
+            chilipeppr.load(
+              "#com-chilipeppr-widget-jscut-instance",
+              "http://raw.githubusercontent.com/chilipeppr/widget-jscut/master/auto-generated-widget.html",
+              function() {
+                // Callback after widget loaded into #myDivOrgJscutGcodeWidget
+                // Now use require.js to get reference to instantiated widget
+                cprequire(
+                  ["inline:org-jscut-gcode-widget"], // the id you gave your widget
+                  function(myObjOrgJscutGcodeWidget) {
+                    // Callback that is passed reference to the newly loaded widget
+                    console.log("Widget / JSCut just got loaded.", myObjOrgJscutGcodeWidget);
+                    myObjOrgJscutGcodeWidget.init();
                   }
                 );
               }

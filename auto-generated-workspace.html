@@ -163,6 +163,7 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
             this.loadGcodeListWidget()
             this.loadSVG2GcodeWidget()
             this.load3DViewerWidget()
+            this.loadJsCutWidget()
             this.loadTemplateWidget();
             
             // Create our workspace upper right corner triangle menu
@@ -284,6 +285,30 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
                     // Callback that is passed reference to the newly loaded widget
                     console.log("Widget / XYZ Axes just got loaded.", myObjWidgetXyz);
                     myObjWidgetXyz.init();
+                  }
+                );
+              }
+            );
+        },
+        /**
+         * Load the Axes widget via chilipeppr.load()
+         */
+        loadJsCutWidget: function(callback) {
+
+            var that = this;
+
+            chilipeppr.load(
+              "#com-chilipeppr-widget-jscut-instance",
+              "http://raw.githubusercontent.com/chilipeppr/widget-jscut/master/auto-generated-widget.html",
+              function() {
+                // Callback after widget loaded into #myDivOrgJscutGcodeWidget
+                // Now use require.js to get reference to instantiated widget
+                cprequire(
+                  ["inline:org-jscut-gcode-widget"], // the id you gave your widget
+                  function(myObjOrgJscutGcodeWidget) {
+                    // Callback that is passed reference to the newly loaded widget
+                    console.log("Widget / JSCut just got loaded.", myObjOrgJscutGcodeWidget);
+                    myObjOrgJscutGcodeWidget.init();
                   }
                 );
               }
@@ -434,10 +459,10 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
         <div class="container-fluid">
             <div class="row">
 
-                <!-- Left Column -->
+               <!-- Left Column -->
                 <!-- Change the width by adjusting col-md-4 to be col-md-3 for skinnier, or col-md-5 for wider -->
                 <!-- You must have all columns add up to 12 since we use bootstrap's col-md technique, i.e. col-md-2, col-md-7, col-md-3 adds to 12 -->
-                <div class="col-md-3 col-pad10">
+                <div class="col-md-2 col-pad5">
 
                     <div class="com-chilipeppr-ws-hdr well">
                         
@@ -462,25 +487,25 @@ cpdefine("inline:picnc-workspace", ["chilipeppr_ready"], function() {
                         </div>
 
                     </div>
-
+                    <!-- XYZ Axis Widget -->
                     <div id="com-chilipeppr-widget-xyz-instance">
                         Axes Widget
                     </div>
-                    
+                    <!-- Serial Port Console Widget -->
                     <div id="com-chilipeppr-widget-spconsole-instance">
                         Serial Port Console
                     </div>
-
+                    <!-- GcodeList Widget -->
                     <div id="com-chilipeppr-widget-gcodelist-instance">
-                        GcodeList Widget
+                        <p class="gcodelist" style="max-height:100px;">GcodeList Widget</p>
                     </div>
-
+                    <!-- Serial Port Widget -->
                     <div id="com-chilipeppr-widget-serialport-instance">
                         Serial Port
                     </div>
-                    
-                    <div id="com-chilipeppr-widget-svg2gcode-instance">
-                        SVG2Gcode
+                    <!-- JSCut Widget -->
+                    <div id="com-chilipeppr-widget-jscut-instance">
+                        Serial Port
                     </div>
 
                 </div>
